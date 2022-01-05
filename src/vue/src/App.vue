@@ -1,17 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <myheader></myheader>
+    <p v-if="sensitivity.length > 0">{{ sensitivity }}</p>
+    <p v-else>基準となるゲーム内感度を入力してください</p>
+    <input type="text" v-model="sensitivity" />
+    <button @click="set()">設定</button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import myheader from "./components/MyHeader";
+import axios from "axios";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    myheader,
+  },
+  data() {
+    return {
+      sensitivity: "",
+    };
+  },
+  methods: {
+    set() {
+      var sen = this.sensitivity;
+      axios
+        .get("/api/calculate", {
+          params: {
+            sensitivity: sen,
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style>
