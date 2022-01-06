@@ -1,10 +1,16 @@
 <template>
   <div id="app">
     <myheader></myheader>
-    <p v-if="sensitivity.length > 0">{{ sensitivity }}</p>
-    <p v-else>基準となるゲーム内感度を入力してください</p>
-    <input type="text" v-model="sensitivity" />
-    <button @click="set()">設定</button>
+    <p v-if="high != null">{{ msg }}</p>
+    <p v-else>DPIを入力してください</p>
+
+    <label v-if="high != null" id="high" @click="setSen()">{{ high }}</label>
+    <label v-if="mid != null" id="mid">{{ mid }}</label>
+    <label v-if="low != null" id="low" @click="setSen()">{{ low }}</label>
+    <br />
+    <br />
+    <input type="text" v-model="dpi" />
+    <button @click="setDpi()">設定</button>
   </div>
 </template>
 
@@ -16,22 +22,49 @@ export default {
   components: {
     myheader,
   },
+
   data() {
     return {
-      sensitivity: "",
+      dpi: "",
+      msg: "",
+      high: null,
+      mid: null,
+      low: null,
     };
   },
   methods: {
-    set() {
-      var sen = this.sensitivity;
+    setDpi() {
+      let dpi = this.dpi;
+      let self = this;
       axios
         .get("/api/calculate", {
           params: {
-            sensitivity: sen,
+            dpi: dpi,
           },
         })
         .then(function (response) {
-          console.log(response);
+          self.high = response.data["high"];
+          self.mid = response.data["mid"];
+          self.low = response.data["low"];
+          self.msg = "好みのゲーム内感度を選択してください";
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    setSen() {
+      let sen = this.low;
+      let self = this;
+      axios
+        .get("/api/calculateNextSen", {
+          params: {
+            sen: sen,
+          },
+        })
+        .then(function (response) {
+          self.high = response.data["high"];
+          self.mid = response.data["mid"];
+          self.low = response.data["low"];
         })
         .catch(function (error) {
           console.log(error);
@@ -49,5 +82,21 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#high,
+#low {
+  font-size: 250%;
+}
+#high:hover,
+#low:hover {
+  cursor: pointer;
+}
+
+#mid {
+  font-size: 150%;
+}
+
+label {
+  margin: 20px;
 }
 </style>
