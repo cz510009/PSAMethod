@@ -22,8 +22,8 @@ public class CalculateController {
     }
 
     @GetMapping
-    public SensitivityDto calculateSensitivity(@RequestParam double sensitivity) {
-        return calculateService.calculate(sensitivity);
+    public SensitivityDto calculateSensitivity(@RequestParam double dpi) {
+        return calculateService.calculate(dpi);
     }
 
 }
