@@ -2,8 +2,6 @@ package com.cz510009.psamethod.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.cz510009.psamethod.Model.SensitivityDto;
 

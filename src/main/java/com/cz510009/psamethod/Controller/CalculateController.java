@@ -1,7 +1,5 @@
 package com.cz510009.psamethod.Controller;
 
-import java.util.List;
-
 import com.cz510009.psamethod.Model.SensitivityDto;
 import com.cz510009.psamethod.Service.CalculateService;
 
