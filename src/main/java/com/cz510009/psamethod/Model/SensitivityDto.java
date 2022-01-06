@@ -7,10 +7,14 @@ public class SensitivityDto {
     private final double high;
 
     @Getter
+    private final double mid;
+
+    @Getter
     private final double low;
 
-    public SensitivityDto(double high, double low) {
+    public SensitivityDto(double high, double mid, double low) {
         this.high = high;
+        this.mid = mid;
         this.low = low;
     }
 }

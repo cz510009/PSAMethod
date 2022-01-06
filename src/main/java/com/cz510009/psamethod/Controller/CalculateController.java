@@ -1,7 +1,5 @@
 package com.cz510009.psamethod.Controller;
 
-import java.util.List;
-
 import com.cz510009.psamethod.Model.SensitivityDto;
 import com.cz510009.psamethod.Service.CalculateService;
 
@@ -22,8 +20,8 @@ public class CalculateController {
     }
 
     @GetMapping
-    public SensitivityDto calculateSensitivity(@RequestParam double sensitivity) {
-        return calculateService.calculate(sensitivity);
+    public SensitivityDto calculateSensitivity(@RequestParam double dpi) {
+        return calculateService.calculate(dpi);
     }
 
 }
