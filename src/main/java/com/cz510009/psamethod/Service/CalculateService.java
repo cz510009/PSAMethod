@@ -20,6 +20,24 @@ public class CalculateService {
         return dto;
     }
 
+    public SensitivityDto calculate(double sen, double mid, String type) {
+        double high = 0;
+        double low = 0;
+        if (type.equals("HIGH")) {
+            high = sen;
+            low = mid;
+            mid = round((sen + mid) / 2);
+        }
+        if (type.equals("LOW")) {
+            low = sen;
+            high = mid;
+            mid = round((sen + mid) / 2);
+        }
+        SensitivityDto dto = new SensitivityDto(high, mid, low);
+
+        return dto;
+    }
+
     private static double round(double num) {
         BigDecimal before = new BigDecimal(num);
         BigDecimal after = before.setScale(2, RoundingMode.HALF_UP);

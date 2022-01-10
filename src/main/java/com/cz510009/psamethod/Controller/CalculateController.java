@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("api/calculate")
+// @RequestMapping("api/calculate")
 public class CalculateController {
     private final CalculateService calculateService;
 
@@ -19,9 +19,16 @@ public class CalculateController {
         this.calculateService = calculateService;
     }
 
-    @GetMapping
+    @RequestMapping("api/calculate")
     public SensitivityDto calculateSensitivity(@RequestParam double dpi) {
         return calculateService.calculate(dpi);
+    }
+
+    @RequestMapping("api/calculate/next")
+    @GetMapping
+    public SensitivityDto calculateNextSensitivity(@RequestParam double sen, @RequestParam double mid,
+            @RequestParam String type) {
+        return calculateService.calculate(sen, mid, type);
     }
 
 }
