@@ -4,9 +4,9 @@
     <p v-if="high != null">{{ msg }}</p>
     <p v-else>DPIを入力してください</p>
 
-    <label v-if="high != null" id="high" @click="setSen()">{{ high }}</label>
+    <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
     <label v-if="mid != null" id="mid">{{ mid }}</label>
-    <label v-if="low != null" id="low" @click="setSen()">{{ low }}</label>
+    <label v-if="low != null" id="low" @click="setLow()">{{ low }}</label>
     <br />
     <br />
     <input type="text" v-model="dpi" />
@@ -52,13 +52,39 @@ export default {
           console.log(error);
         });
     },
-    setSen() {
-      let sen = this.low;
+    setHigh() {
+      let type = "HIGH";
+      let sen = this.high;
+      let mid = this.mid;
       let self = this;
       axios
-        .get("/api/calculateNextSen", {
+        .get("/api/calculate/next", {
           params: {
             sen: sen,
+            mid: mid,
+            type: type,
+          },
+        })
+        .then(function (response) {
+          self.high = response.data["high"];
+          self.mid = response.data["mid"];
+          self.low = response.data["low"];
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    setLow() {
+      let type = "LOW";
+      let sen = this.low;
+      let mid = this.mid;
+      let self = this;
+      axios
+        .get("/api/calculate/next", {
+          params: {
+            sen: sen,
+            mid: mid,
+            type: type,
           },
         })
         .then(function (response) {

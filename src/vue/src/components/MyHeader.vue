@@ -1,3 +1,4 @@
 <template>
-  <div>TenZ式AIM感度調整</div>
+  <h1>TenZ式AIM感度調整</h1>
 </template>
+
