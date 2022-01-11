@@ -26,9 +26,8 @@ public class CalculateController {
 
     @RequestMapping("api/calculate/next")
     @GetMapping
-    public SensitivityDto calculateNextSensitivity(@RequestParam double sen, @RequestParam double mid,
-            @RequestParam String type) {
-        return calculateService.calculate(sen, mid, type);
+    public SensitivityDto calculateNextSensitivity(@RequestParam double sen, @RequestParam double mid) {
+        return calculateService.calculate(sen, mid);
     }
 
 }

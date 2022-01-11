@@ -20,15 +20,14 @@ public class CalculateService {
         return dto;
     }
 
-    public SensitivityDto calculate(double sen, double mid, String type) {
+    public SensitivityDto calculate(double sen, double mid) {
         double high = 0;
         double low = 0;
-        if (type.equals("HIGH")) {
+        if (sen >= mid) {
             high = sen;
             low = mid;
             mid = round((sen + mid) / 2);
-        }
-        if (type.equals("LOW")) {
+        } else {
             low = sen;
             high = mid;
             mid = round((sen + mid) / 2);
