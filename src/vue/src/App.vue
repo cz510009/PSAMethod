@@ -10,6 +10,18 @@
     </div>
     <input type="text" v-model="dpi" />
     <button @click="setDpi()">設定</button>
+    <div class="description">
+      <h3>使い方</h3>
+
+      <ol class="process">
+        <li>マウスのDPIを入力する</li>
+        <li>設定ボタンをクリックする</li>
+        <li>表示された高い方の感度と低い方の感度をVALORANTで設定して試す</li>
+        <li>操作しやすい感度をクリックする</li>
+        <li>感度をクリックしても数値が変わらなくなるまで2~4を繰り返す</li>
+        <li>変わらなくなったときに真ん中に表示された感度が適切な感度です</li>
+      </ol>
+    </div>
   </div>
 </template>
 
@@ -45,7 +57,7 @@ export default {
           self.high = response.data["high"];
           self.mid = response.data["mid"];
           self.low = response.data["low"];
-          self.msg = "好みのゲーム内感度を選択してください";
+          self.msg = "好みのゲーム内感度をクリックしてください";
         })
         .catch(function (error) {
           console.log(error);
@@ -123,5 +135,15 @@ label {
 
 .sen-area {
   height: 5rem;
+}
+li {
+  box-align: center;
+}
+.description {
+  text-align: center;
+}
+.process {
+  display: inline-block;
+  text-align: left;
 }
 </style>
