@@ -3,12 +3,11 @@
     <myheader></myheader>
     <p v-if="high != null">{{ msg }}</p>
     <p v-else>DPIを入力してください</p>
-
-    <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
-    <label v-if="mid != null" id="mid">{{ mid }}</label>
-    <label v-if="low != null" id="low" @click="setLow()">{{ low }}</label>
-    <br />
-    <br />
+    <div class="sen-area">
+      <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
+      <label v-if="mid != null" id="mid">{{ mid }}</label>
+      <label v-if="low != null" id="low" @click="setLow()">{{ low }}</label>
+    </div>
     <input type="text" v-model="dpi" />
     <button @click="setDpi()">設定</button>
   </div>
@@ -53,7 +52,6 @@ export default {
         });
     },
     setHigh() {
-      let type = "HIGH";
       let sen = this.high;
       let mid = this.mid;
       let self = this;
@@ -62,7 +60,6 @@ export default {
           params: {
             sen: sen,
             mid: mid,
-            type: type,
           },
         })
         .then(function (response) {
@@ -75,7 +72,6 @@ export default {
         });
     },
     setLow() {
-      let type = "LOW";
       let sen = this.low;
       let mid = this.mid;
       let self = this;
@@ -84,7 +80,6 @@ export default {
           params: {
             sen: sen,
             mid: mid,
-            type: type,
           },
         })
         .then(function (response) {
@@ -124,5 +119,9 @@ export default {
 
 label {
   margin: 20px;
+}
+
+.sen-area {
+  height: 5rem;
 }
 </style>
