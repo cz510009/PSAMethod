@@ -2,7 +2,6 @@
   <div id="app">
     <myheader></myheader>
     <p>{{ msg }}</p>
-    <!-- <p v-else>DPIを入力してください</p> -->
     <div class="sen-area">
       <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
       <label v-if="mid != null" id="mid">{{ mid }}</label>
@@ -22,6 +21,17 @@
         <li>変わらなくなったときに真ん中に表示された感度が適切な感度です</li>
       </ol>
     </div>
+
+    <p>参考動画</p>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/9p98yvaqZyM"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </div>
 </template>
 
@@ -119,7 +129,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 #high,
