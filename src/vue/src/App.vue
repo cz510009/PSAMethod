@@ -2,7 +2,6 @@
   <div id="app">
     <myheader></myheader>
     <p>{{ msg }}</p>
-    <!-- <p v-else>DPIを入力してください</p> -->
     <div class="sen-area">
       <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
       <label v-if="mid != null" id="mid">{{ mid }}</label>
