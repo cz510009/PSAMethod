@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <myheader></myheader>
-    <p v-if="high != null">{{ msg }}</p>
-    <p v-else>DPIを入力してください</p>
+    <p>{{ msg }}</p>
+    <!-- <p v-else>DPIを入力してください</p> -->
     <div class="sen-area">
       <label v-if="high != null" id="high" @click="setHigh()">{{ high }}</label>
       <label v-if="mid != null" id="mid">{{ mid }}</label>
       <label v-if="low != null" id="low" @click="setLow()">{{ low }}</label>
     </div>
-    <input type="text" v-model="dpi" />
+    <input type="text" v-model="dpi" placeholder="DPI" />
     <button @click="setDpi()">設定</button>
     <div class="description">
       <h3>使い方</h3>
@@ -37,16 +37,22 @@ export default {
   data() {
     return {
       dpi: "",
-      msg: "",
+      msg: "DPIを入力してください",
       high: null,
       mid: null,
       low: null,
     };
   },
+
   methods: {
     setDpi() {
       let dpi = this.dpi;
       let self = this;
+      const pattern = /^[0-9]*$/;
+      if (!pattern.test(dpi)) {
+        this.msg = "DPIは半角数字で入力してください";
+        return;
+      }
       axios
         .get("/api/calculate", {
           params: {
