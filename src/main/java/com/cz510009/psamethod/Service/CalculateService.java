@@ -20,9 +20,9 @@ public class CalculateService {
     }
 
     public SensitivityDto calculate(double sen, double mid) {
-        mid = sen + mid;
-        double high = mid * 1.5;
-        double low = mid * 0.5;
+        mid = round((sen + mid) / 2);
+        double high = round(mid * 1.5);
+        double low = round(mid * 0.5);
         // if (sen >= mid) {
         // high = sen;
         // low = mid;
