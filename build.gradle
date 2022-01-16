@@ -28,3 +28,17 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+task npmRunBuild() {
+    if (!file("${rootDir}/src/vue/node_modules").exists()) {
+        "npm --prefix ${rootDir}/src/vue install ${rootDir}/vue"
+                .execute()
+                .waitForProcessOutput(System.out, System.err)
+    }
+    "npm --prefix ${rootDir}/src/vue run build"
+            .execute()
+            .waitForProcessOutput(System.out, System.err)
+}
+
+processResources {
+    dependsOn npmRunBuild
+}
