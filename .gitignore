@@ -5,7 +5,6 @@ node_modules
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-!**/src/main/resource
 
 ### STS ###
 .apt_generated
