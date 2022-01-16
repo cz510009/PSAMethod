@@ -20,14 +20,15 @@ public class CalculateController {
     }
 
     @RequestMapping("api/calculate")
-    public SensitivityDto calculateSensitivity(@RequestParam double dpi) {
-        return calculateService.calculate(dpi);
+    public SensitivityDto calculateSensitivity(@RequestParam double base) {
+        return calculateService.calculate(base);
     }
 
     @RequestMapping("api/calculate/next")
     @GetMapping
-    public SensitivityDto calculateNextSensitivity(@RequestParam double sen, @RequestParam double mid) {
-        return calculateService.calculate(sen, mid);
+    public SensitivityDto calculateNextSensitivity(@RequestParam double sen, @RequestParam double mid,
+            @RequestParam int count) {
+        return calculateService.calculate(sen, mid, count);
     }
 
 }
