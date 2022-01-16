@@ -7,18 +7,18 @@
       <label v-if="mid != null" id="mid">{{ mid }}</label>
       <label v-if="low != null" id="low" @click="setLow()">{{ low }}</label>
     </div>
-    <input type="text" v-model="dpi" placeholder="DPI" />
-    <button @click="setDpi()">設定</button>
+    <p v-if="ave != null">あなたの適切なAIM感度は{{ ave }}です</p>
+    <input type="text" v-model="base" placeholder="基準感度" />
+    <button @click="setBase()">設定</button>
     <div class="description">
       <h3>使い方</h3>
 
       <ol class="process">
-        <li>マウスのDPIを入力する</li>
+        <li>基準となる感度を入力する</li>
         <li>設定ボタンをクリックする</li>
-        <li>表示された高い方の感度と低い方の感度をVALORANTで設定して試す</li>
+        <li>太字で表示された感度をゲーム内で試す</li>
         <li>操作しやすい感度をクリックする</li>
-        <li>感度をクリックしても数値が変わらなくなるまで３~4を繰り返す</li>
-        <li>変わらなくなったときに真ん中に表示された感度が適切な感度です</li>
+        <li>3~4を繰り返す</li>
       </ol>
     </div>
 
@@ -46,27 +46,31 @@ export default {
 
   data() {
     return {
-      dpi: "",
-      msg: "DPIを入力してください",
+      base: "",
+      msg: "基準となる感度を入力してください",
       high: null,
       mid: null,
       low: null,
+      count: 0,
+      ave: null,
     };
   },
 
   methods: {
-    setDpi() {
-      let dpi = this.dpi;
+    setBase() {
+      let base = this.base;
       let self = this;
-      const pattern = /^[0-9]*$/;
-      if (!pattern.test(dpi)) {
-        this.msg = "DPIは半角数字で入力してください";
+      self.count = 0;
+      self.ave = null;
+      const pattern = /^([1-9]\d*|0)(\.\d+)?$/;
+      if (!pattern.test(base)) {
+        this.msg = "感度は半角数字で入力してください";
         return;
       }
       axios
         .get("/api/calculate", {
           params: {
-            dpi: dpi,
+            base: base,
           },
         })
         .then(function (response) {
@@ -83,11 +87,22 @@ export default {
       let sen = this.high;
       let mid = this.mid;
       let self = this;
+      let count = this.count + 1;
+      self.count = count;
+      if (count == 6) {
+        let ave = (this.high + this.mid + this.low) / 3;
+        ave = Math.round(ave * 100) / 100;
+        this.ave = ave;
+        self.high = null;
+        self.low = null;
+        return;
+      }
       axios
         .get("/api/calculate/next", {
           params: {
             sen: sen,
             mid: mid,
+            count: count,
           },
         })
         .then(function (response) {
@@ -103,11 +118,22 @@ export default {
       let sen = this.low;
       let mid = this.mid;
       let self = this;
+      let count = this.count + 1;
+      self.count = count;
+      if (count == 6) {
+        let ave = (this.high + this.mid + this.low) / 3;
+        ave = Math.round(ave * 100) / 100;
+        this.ave = ave;
+        self.high = null;
+        self.low = null;
+        return;
+      }
       axios
         .get("/api/calculate/next", {
           params: {
             sen: sen,
             mid: mid,
+            count: count,
           },
         })
         .then(function (response) {
