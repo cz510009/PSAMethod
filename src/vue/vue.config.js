@@ -9,7 +9,7 @@ module.exports = {
     pages: {
         index: {
           entry: "src/main.js",
-          title: "TenZ式AIM感度調整 for VALORANT",
+          title: "TenZ式AIM感度調整",
         }
       }
 };

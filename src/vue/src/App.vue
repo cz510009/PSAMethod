@@ -20,6 +20,12 @@
         <li>操作しやすい感度をクリックする</li>
         <li>3~4を繰り返す</li>
       </ol>
+      <h5>基準値の目安は以下の通りです</h5>
+      <label>APEX ... 1200 ÷ マウスのDPI</label>
+      <label>VALORANT ... 280 ÷ マウスのDPI</label>
+      <p class="acceleration">
+        ※ 加速を有効にしている場合の感度調整は非対応です
+      </p>
     </div>
 
     <p>参考動画</p>
@@ -186,5 +192,8 @@ li {
 .process {
   display: inline-block;
   text-align: left;
+}
+.acceleration {
+  color: red;
 }
 </style>
